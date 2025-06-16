@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harambee Spirit - Kenyan Culture & Friendship</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #c41e3a 0%, #2b5a87 50%, #008751 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="70" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInFromBottom 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideInFromTop {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromBottom {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: slideInFromBottom 1s ease-out 1s both;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #c41e3a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #2b5a87;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #c41e3a, #008751);
+            border-radius: 2px;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .culture-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .culture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #c41e3a, #008751);
+        }
+
+        .culture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .culture-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2b5a87;
+        }
+
+        .culture-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .friendship-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .friendship-quote {
+            text-align: center;
+            font-size: 2rem;
+            font-style: italic;
+            color: #2b5a87;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .friendship-quote::before,
+        .friendship-quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: #c41e3a;
+            position: absolute;
+            top: -20px;
+        }
+
+        .friendship-quote::before {
+            left: -30px;
+        }
+
+        .friendship-quote::after {
+            right: -30px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #c41e3a, #008751);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .interactive-section {
+            background: #2b5a87;
+            color: white;
+        }
+
+        .interactive-content {
+            text-align: center;
+        }
+
+        .greetings-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .greeting-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .greeting-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .greeting-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .greeting-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c41e3a, #008751);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1) rotate(360deg);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .friendship-quote {
+                font-size: 1.5rem;
+            }
+            
+            .friendship-quote::before,
+            .friendship-quote::after {
+                display: none;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Harambee Spirit</h1>
+            <p>Celebrating Kenyan Culture & The Power of Friendship</p>
+            <a href="#culture" class="cta-button">Explore Our Heritage</a>
+        </div>
+    </section>
+
+    <section id="culture" class="section">
+        <div class="container">
+            <h2 class="section-title">Rich Cultural Heritage</h2>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <h3>🎭 Traditional Arts</h3>
+                    <p>From the intricate beadwork of the Maasai to the vibrant sculptures of the Makonde people, Kenyan art tells stories of our ancestors and celebrates our diverse heritage. Each piece carries the wisdom and creativity of generations.</p>
+                </div>
+                <div class="culture-card">
+                    <h3>🥁 Music & Dance</h3>
+                    <p>The rhythmic beats of traditional drums echo across Kenya's landscapes. From the Gikuyu's ceremonial dances to the coastal Taarab music, our melodies unite hearts and souls, creating bonds that transcend tribal boundaries.</p>
+                </div>
+                <div class="culture-card">
+                    <h3>🍲 Culinary Traditions</h3>
+                    <p>Ugali, nyama choma, and sukuma wiki bring families together around the table. Our cuisine reflects the diversity of our people - from the spiced dishes of the coast to the hearty meals of the highlands.</p>
+                </div>
+                <div class="culture-card">
+                    <h3>🏺 Oral Traditions</h3>
+                    <p>Stories passed down through generations teach us about courage, wisdom, and community. From Hare and Hyena tales to the legends of great warriors, our oral heritage keeps our values alive.</p>
+                </div>
+                <div class="culture-card">
+                    <h3>🎨 Textile Arts</h3>
+                    <p>The colorful kanga and kikoy fabrics tell stories through their patterns and proverbs. Each design carries meaning, connecting wearers to their heritage and sharing wisdom with the community.</p>
+                </div>
+                <div class="culture-card">
+                    <h3>🏛️ Architecture</h3>
+                    <p>From the coral stone houses of Lamu to the traditional Pokot homesteads, our architecture reflects adaptation to environment and community needs, showcasing the ingenuity of our people.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section friendship-section">
+        <div class="container">
+            <h2 class="section-title">Ubuntu & Friendship</h2>
+            <div class="friendship-quote">
+                Harambee - We pull together, we rise together
+            </div>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 50px;">
+                In Kenya, friendship isn't just a bond between individuals - it's the foundation of our society. The spirit of Ubuntu reminds us that "I am because we are." Our friendships cross ethnic lines, build bridges between communities, and create the social fabric that makes Kenya strong.
+            </p>
+            
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">🤝</div>
+                    <h3>Harambee</h3>
+                    <p>Coming together to achieve common goals. When we work as friends and neighbors, mountains move and dreams become reality.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">❤️</div>
+                    <h3>Ubuntu</h3>
+                    <p>The belief that we are all connected. Your joy is my joy, your struggle is my struggle. Together we are stronger.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🌟</div>
+                    <h3>Respect</h3>
+                    <p>Honoring each other's differences while celebrating our shared humanity. True friendship thrives on mutual respect and understanding.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🌍</div>
+                    <h3>Unity</h3>
+                    <p>One Kenya, many tribes, countless friendships. Our diversity is our strength when united by bonds of genuine friendship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section interactive-section">
+        <div class="container">
+            <div class="interactive-content">
+                <h2 class="section-title" style="color: white;">Greetings from the Heart</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">Kenya's 47+ languages offer beautiful ways to greet friends. Click on each greeting to hear the warmth in our words:</p>
+                
+                <div class="greetings-container">
+                    <div class="greeting-card pulse" onclick="showGreeting('Habari yako, rafiki!')">
+                        <h4>Swahili</h4>
+                        <p>Habari yako?</p>
+                    </div>
+                    <div class="greeting-card" onclick="showGreeting('Wĩ mwega, mũrata wakwa!')">
+                        <h4>Kikuyu</h4>
+                        <p>Wĩ mwega?</p>
+                    </div>
+                    <div class="greeting-card" onclick="showGreeting('Chamgei, tugul-aap!')">
+                        <h4>Kalenjin</h4>
+                        <p>Chamgei?</p>
+                    </div>
+                    <div class="greeting-card" onclick="showGreeting('Amosi, osiepna!')">
+                        <h4>Luo</h4>
+                        <p>Amosi?</p>
+                    </div>
+                    <div class="greeting-card" onclick="showGreeting('Salama, shangazi!')">
+                        <h4>Mijikenda</h4>
+                        <p>Salama?</p>
+                    </div>
+                </div>
+                
+                <div id="greeting-display" style="margin-top: 40px; font-size: 1.5rem; font-weight: bold; min-height: 50px; opacity: 0; transition: opacity 0.3s ease;">
+                    Click a greeting above to see the friendship!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>🇰🇪 Celebrating the beautiful tapestry of Kenyan culture and friendship 🇰🇪</p>
+            <p style="font-size: 0.9rem; opacity: 0.8;">
+                "Haba na harambee" - Together we build, together we grow
+            </p>
+            <div class="social-links">
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">🌐</a>
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">🎵</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showGreeting(message) {
+            const display = document.getElementById('greeting-display');
+            display.style.opacity = '0';
+            
+            setTimeout(() => {
+                display.textContent = message;
+                display.style.opacity = '1';
+            }, 150);
+        }
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.culture-card, .value-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add interactive hover effects
+        document.querySelectorAll('.culture-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'white';
+            });
+        });
+
+        // Initialize with first greeting
+        setTimeout(() => {
+            showGreeting('Welcome, friends from all corners of Kenya! 🇰🇪');
+        }, 1000);
+    </script>
+</body>
+</html>
