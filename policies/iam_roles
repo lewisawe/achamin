@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+aws iam create-role --role-name achaminLambdaRole --assume-role-policy-document file://trust-policy.json
+
+aws iam attach-role-policy --role-name achaminLambdaRole --policy-arn arn:aws:iam::aws:policy/AmazonRekognitionFullAccess
+aws iam attach-role-policy --role-name achaminLambdaRole --policy-arn arn:aws:iam::aws:policy/AmazonPollyFullAccess
+aws iam attach-role-policy --role-name achaminLambdaRole --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+aws iam attach-role-policy --role-name achaminLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+# Custom policy for Bedrock access
+aws iam create-policy --policy-name BedrockAccess --policy-document '{"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Action": "bedrock:*", "Resource": "*"}]}'
+aws iam attach-role-policy --role-name achaminLambdaRole --policy-arn arn:aws:iam::AccounIDXXXXXXXXXXXX:policy/BedrockAccess
