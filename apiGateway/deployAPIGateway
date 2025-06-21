@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Create REST API
-aws apigateway create-rest-api --name CulturalHarmonyAPI
+aws apigateway create-rest-api --name AchaminAPI
 
 # Get the API ID from the output of the previous command
 API_ID=<api_id_from_output>
