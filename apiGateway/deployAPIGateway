@@ -7,23 +7,23 @@ aws apigateway create-rest-api --name AchaminAPI
 API_ID=<api_id_from_output>
 
 # Get the root resource ID
-ROOT_RESOURCE_ID=\$(aws apigateway get-resources --rest-api-id \$API_ID --query 'items[0].id' --output text)
+ROOT_RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query 'items[0].id' --output text)
 
 # Create a resource
-aws apigateway create-resource --rest-api-id \$API_ID --parent-id \$ROOT_RESOURCE_ID --path-part "analyze"
-RESOURCE_ID=\$(aws apigateway get-resources --rest-api-id \$API_ID --query "items[?pathPart=='analyze'].id" --output text)
+aws apigateway create-resource --rest-api-id $API_ID --parent-id $ROOT_RESOURCE_ID --path-part "analyze"
+RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query "items[?pathPart=='analyze'].id" --output text)
 
 # Create method
-aws apigateway put-method --rest-api-id \$API_ID --resource-id \$RESOURCE_ID --http-method POST --authorization-type NONE
+aws apigateway put-method --rest-api-id $API_ID --resource-id $RESOURCE_ID --http-method POST --authorization-type NONE
 
 # Set Lambda integration
 aws apigateway put-integration \
-  --rest-api-id \$API_ID \
-  --resource-id \$RESOURCE_ID \
+  --rest-api-id $API_ID \
+  --resource-id $RESOURCE_ID \
   --http-method POST \
   --type AWS_PROXY \
   --integration-http-method POST \
-  --uri arn:aws:apigateway:REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:REGION:ACCOUNT_ID:function:CulturalHarmonyFunction/invocations
+  --uri arn:aws:apigateway:$AWS_DEFAULT_REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:xxxxxxxx:function:CulturalHarmonyFunction/invocations
 
 # Deploy the API
-aws apigateway create-deployment --rest-api-id \$API_ID --stage-name prod
+aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
