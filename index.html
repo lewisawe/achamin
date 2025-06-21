@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harambee Spirit - Kenyan Culture & Friendship</title>
+    <title>Achamin - Cultural Understanding Through AI</title>
     <style>
         * {
             margin: 0;
@@ -352,9 +352,59 @@
 <body>
     <section class="hero">
         <div class="hero-content">
-            <h1>Harambee Spirit</h1>
-            <p>Celebrating Kenyan Culture & The Power of Friendship</p>
-            <a href="#culture" class="cta-button">Explore Our Heritage</a>
+            <h1>Achamin</h1>
+            <p>Discover, Understand, and Connect with Global Cultures</p>
+            <a href="#upload-section" class="cta-button" onclick="scrollToUploadSection(event)">Explore Our Heritage</a>
+        </div>
+    </section>
+
+    <section id="upload-section" class="section" style="min-height: 100vh; padding-top: 80px; margin-top: -20px; background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 40px;">Cultural Analysis</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                Upload an image of a cultural artifact, traditional clothing, festival, or practice to discover its rich cultural context.
+            </p>
+            
+            <div class="upload-container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <div class="upload-area" id="upload-area" style="border: 3px dashed #2b5a87; border-radius: 20px; padding: 40px; margin-bottom: 30px; cursor: pointer; transition: all 0.3s ease;">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24' fill='none' stroke='%232b5a87' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'%3E%3C/path%3E%3Cpolyline points='17 8 12 3 7 8'%3E%3C/polyline%3E%3Cline x1='12' y1='3' x2='12' y2='15'%3E%3C/line%3E%3C/svg%3E" alt="Upload" style="margin-bottom: 20px;">
+                    <h3 style="color: #2b5a87; margin-bottom: 10px;">Drag & Drop or Click to Upload</h3>
+                    <p style="color: #666;">Share a cultural image to begin your journey</p>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="loading-indicator" id="loading-indicator" style="display: none; text-align: center; margin: 30px 0;">
+                    <div class="spinner" style="width: 50px; height: 50px; border: 5px solid rgba(43, 90, 135, 0.2); border-radius: 50%; border-top-color: #2b5a87; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                    <p style="margin-top: 15px; color: #2b5a87;">Analyzing cultural elements...</p>
+                </div>
+                
+                <div class="results-container" id="results-container" style="display: none; background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px; text-align: left;">
+                    <div class="results-header" style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div class="preview-image-container" style="width: 150px; height: 150px; overflow: hidden; border-radius: 10px; margin-right: 20px;">
+                            <img id="preview-image" src="" alt="Uploaded Image" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div>
+                            <h3 style="color: #2b5a87; margin-bottom: 10px;">Cultural Analysis</h3>
+                            <div id="detected-elements" style="display: flex; flex-wrap: wrap; gap: 5px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cultural-context" id="cultural-context" style="margin-bottom: 30px;">
+                        <h4 style="color: #2b5a87; margin-bottom: 15px;">Cultural Context</h4>
+                        <div id="context-content" style="line-height: 1.8; color: #333;"></div>
+                    </div>
+                    
+                    <div class="audio-player" id="audio-player" style="background: #f8f9fa; border-radius: 10px; padding: 15px; display: flex; align-items: center;">
+                        <button id="play-button" class="play-button" style="background: #2b5a87; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-right: 15px; cursor: pointer;">
+                            ▶
+                        </button>
+                        <div style="flex-grow: 1;">
+                            <h4 style="margin: 0 0 5px 0; color: #2b5a87;">Listen to Cultural Narration</h4>
+                            <p style="margin: 0; font-size: 0.9rem; color: #666;">Experience the cultural story through audio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -525,6 +575,231 @@
         setTimeout(() => {
             showGreeting('Welcome, friends from all corners of Kenya! 🇰🇪');
         }, 1000);
+        
+        // Make sure the button works
+        document.addEventListener('DOMContentLoaded', function() {
+            const exploreButton = document.querySelector('.cta-button');
+            if (exploreButton) {
+                exploreButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const uploadSection = document.getElementById('upload-section');
+                    if (uploadSection) {
+                        uploadSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+        });
+
+        // Achamin Cultural Analysis Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const resultsContainer = document.getElementById('results-container');
+            const previewImage = document.getElementById('preview-image');
+            const detectedElements = document.getElementById('detected-elements');
+            const contextContent = document.getElementById('context-content');
+            const audioPlayer = document.getElementById('audio-player');
+            const playButton = document.getElementById('play-button');
+            
+            let audioElement = null;
+            
+            // Function to scroll to upload section
+            window.scrollToUploadSection = function(event) {
+                event.preventDefault();
+                const uploadSection = document.getElementById('upload-section');
+                if (uploadSection) {
+                    uploadSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+            
+            // Handle upload area click
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // Handle drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = '#f0f8ff';
+                uploadArea.style.borderColor = '#2b5a87';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.background = 'transparent';
+                uploadArea.style.borderColor = '#2b5a87';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = 'transparent';
+                uploadArea.style.borderColor = '#2b5a87';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    handleFile(fileInput.files[0]);
+                }
+            });
+            
+            // Process the selected file
+            function handleFile(file) {
+                // Check if file is an image
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file');
+                    return;
+                }
+                
+                // Show loading indicator
+                loadingIndicator.style.display = 'block';
+                resultsContainer.style.display = 'none';
+                
+                // Display preview image
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                
+                // Convert image to base64 for API
+                const apiReader = new FileReader();
+                apiReader.onload = (e) => {
+                    const base64Image = e.target.result.split(',')[1];
+                    sendToAPI(base64Image);
+                };
+                apiReader.readAsDataURL(file);
+            }
+            
+            // Send image to API
+            function sendToAPI(base64Image) {
+                // Replace with your actual API endpoint
+                const apiUrl = 'https://your-api-gateway-url/prod/analyze';
+                
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        image: base64Image
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // For demo purposes, show mock results if API is not available
+                    showMockResults();
+                });
+            }
+            
+            // Display the results from the API
+            function displayResults(data) {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                // Display detected elements
+                detectedElements.innerHTML = '';
+                data.detectedElements.forEach(element => {
+                    const tag = document.createElement('span');
+                    tag.textContent = element;
+                    tag.style.background = '#e9ecef';
+                    tag.style.padding = '3px 10px';
+                    tag.style.borderRadius = '15px';
+                    tag.style.fontSize = '0.8rem';
+                    tag.style.color = '#2b5a87';
+                    detectedElements.appendChild(tag);
+                });
+                
+                // Display cultural context
+                contextContent.innerHTML = data.culturalContext.replace(/\n/g, '<br>');
+                
+                // Set up audio player
+                if (audioElement) {
+                    audioElement.pause();
+                    audioElement = null;
+                }
+                
+                audioElement = new Audio(data.audioUrl);
+                playButton.innerHTML = '▶';
+                
+                playButton.onclick = () => {
+                    if (audioElement.paused) {
+                        audioElement.play();
+                        playButton.innerHTML = '❚❚';
+                    } else {
+                        audioElement.pause();
+                        playButton.innerHTML = '▶';
+                    }
+                };
+                
+                // Scroll to results
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Show mock results for demonstration when API is not available
+            function showMockResults() {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                // Display mock detected elements
+                detectedElements.innerHTML = '';
+                ['Traditional Clothing', 'Ceremony', 'Artifact', 'Cultural Symbol'].forEach(element => {
+                    const tag = document.createElement('span');
+                    tag.textContent = element;
+                    tag.style.background = '#e9ecef';
+                    tag.style.padding = '3px 10px';
+                    tag.style.borderRadius = '15px';
+                    tag.style.fontSize = '0.8rem';
+                    tag.style.color = '#2b5a87';
+                    detectedElements.appendChild(tag);
+                });
+                
+                // Display mock cultural context
+                contextContent.innerHTML = `
+                    <p>This image depicts traditional ceremonial attire that holds deep cultural significance. The vibrant colors and intricate patterns represent centuries of artistic tradition and cultural symbolism.</p>
+                    
+                    <p>Historically, these garments were worn during important community celebrations and rites of passage. The specific patterns often indicate social status, family lineage, and connection to ancestral heritage.</p>
+                    
+                    <p>In spiritual contexts, these ceremonial clothes are believed to connect the wearer to ancestral wisdom and divine protection. The symbols woven into the fabric often represent important cultural values like courage, wisdom, and community harmony.</p>
+                    
+                    <p>Today, while these traditional garments are less commonly worn in everyday life, they remain vitally important during cultural celebrations, weddings, and other significant ceremonies. Many communities are working to preserve these textile traditions through educational programs and cultural revival initiatives.</p>
+                    
+                    <p>When appreciating this cultural expression, it's important to recognize the deep spiritual and communal significance behind the visual beauty. These aren't simply decorative items but embodiments of cultural identity and historical continuity.</p>
+                `;
+                
+                // Set up mock audio player functionality
+                playButton.innerHTML = '▶';
+                playButton.onclick = () => {
+                    alert("Audio narration would play here when connected to the actual API.");
+                    playButton.innerHTML = '▶';
+                };
+                
+                // Scroll to results
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     </script>
+    
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </body>
 </html>
